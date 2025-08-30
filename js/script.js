@@ -1,7 +1,7 @@
 // ===============================
 // Configurações globais do site
 // ===============================
-const WHATSAPP_NUMERO = "5571984756524"; 
+const WHATSAPP_NUMERO = "5571981207331"; 
 // 👉 Troque aqui o número quando precisar (DDD + número, sem espaços)
 
 
