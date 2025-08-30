@@ -36,14 +36,35 @@ body {
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
 /* ===== Header / Navbar ===== */
+/* Logo (imagem + texto) */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap; /* evita quebra de linha */
+}
+
+.logo-img {
+  height: 100px;   /* controla o tamanho da imagem */
+  width: auto;
+  display: block;
+}
+
 .site-header {
   position: sticky; top: 0; z-index: 1000;
   background: var(--header);
   box-shadow: var(--shadow);
 }
+/* Container do header */
 .site-header .row {
-  display: flex; align-items: center; gap: 14px;
-  padding: 12px 20px; max-width: 1200px; margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap; /* impede quebrar linha */
 }
 .logo { font-size: 1.1rem; font-weight: 800; color: var(--brand); white-space: nowrap; }
 .menu-toggle {
@@ -220,4 +241,59 @@ html.dark .copy { color: #9aa5b1; }
   .menu-toggle { 
     display: block; 
   }
+}
+
+.social-section {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.social-section .logo {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.instagram-btn {
+  display: inline-block;
+  background: #E1306C; /* cor oficial do insta */
+  color: white;
+  font-size: 24px;
+  padding: 12px 18px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.instagram-btn:hover {
+  background: #C13584;
+}
+
+.social-section {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* espaço entre os botões */
+  margin: 20px 0;
+}
+
+.social-section a {
+  width: 50px;       /* largura fixa */
+  height: 50px;      /* mesma altura → círculo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;   /* tamanho do ícone */
+  color: #fff;
+  background: #111;  /* cor padrão */
+  border-radius: 50%; /* faz virar círculo */
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.instagram-btn:hover {
+  background: #E4405F; /* cor oficial Instagram */
+}
+
+.whatsapp-btn:hover {
+  background: #25D366; /* cor oficial WhatsApp */
 }
