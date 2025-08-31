@@ -136,20 +136,27 @@ document.addEventListener("DOMContentLoaded", () => {
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      padding: 10px;
     `;
 
     const imgAmpliada = document.createElement("img");
-    imgAmpliada.style.maxWidth = "90%";
-    imgAmpliada.style.maxHeight = "90%";
-    imgAmpliada.style.borderRadius = "8px";
-    imgAmpliada.style.cursor = "zoom-out";
+    imgAmpliada.style.cssText = `
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      cursor: zoom-out;
+    `;
 
     overlay.appendChild(imgAmpliada);
     document.body.appendChild(overlay);
 
     imagens.forEach(img => {
-      img.addEventListener("click", () => {
-        imgAmpliada.src = img.src;
+      img.style.cursor = "zoom-in"; // indica que dá para ampliar
+      img.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        imgAmpliada.src = img.getAttribute("src");
         overlay.style.display = "flex";
       });
     });
