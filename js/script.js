@@ -36,8 +36,16 @@ const menuToggle = document.getElementById("menuToggle");
 const siteNav = document.querySelector(".site-nav");
 
 if (menuToggle && siteNav) {
-  menuToggle.addEventListener("click", () => {
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation(); // impede que clique no botão feche o menu
     siteNav.classList.toggle("open");
+  });
+
+  // Fecha o menu ao clicar fora
+  document.addEventListener("click", (e) => {
+    if (siteNav.classList.contains("open") && !siteNav.contains(e.target) && e.target !== menuToggle) {
+      siteNav.classList.remove("open");
+    }
   });
 }
 
@@ -110,5 +118,59 @@ document.addEventListener("DOMContentLoaded", () => {
         window.open(url, "_blank");
       }
     });
+  });
+
+  // ===============================
+  // Lightbox para imagens (só conteúdo, não logo/ícones)
+  // ===============================
+  const imagens = document.querySelectorAll("main img, section img, article img, .galeria img");
+  if (imagens.length) {
+    // cria overlay
+    const overlay = document.createElement("div");
+    overlay.id = "lightboxOverlay";
+    overlay.style.cssText = `
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    `;
+
+    const imgAmpliada = document.createElement("img");
+    imgAmpliada.style.maxWidth = "90%";
+    imgAmpliada.style.maxHeight = "90%";
+    imgAmpliada.style.borderRadius = "8px";
+    imgAmpliada.style.cursor = "zoom-out";
+
+    overlay.appendChild(imgAmpliada);
+    document.body.appendChild(overlay);
+
+    imagens.forEach(img => {
+      img.addEventListener("click", () => {
+        imgAmpliada.src = img.src;
+        overlay.style.display = "flex";
+      });
+    });
+
+    // fecha ao clicar no fundo ou na imagem
+    overlay.addEventListener("click", () => {
+      overlay.style.display = "none";
+    });
+  }
+
+  // ===============================
+  // Ativar link do menu conforme página
+  // ===============================
+  const currentPage = window.location.pathname.split("/").pop();
+  const menuLinks = document.querySelectorAll(".site-nav a, .btn-orcamento");
+
+  menuLinks.forEach(link => {
+    const href = link.getAttribute("href");
+
+    if (href === currentPage || (href === "index.html" && currentPage === "")) {
+      link.classList.add("active");
+    }
   });
 });
