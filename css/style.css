@@ -121,10 +121,11 @@ section.block h2 { font-size: 1.6rem; margin-bottom: 12px; color: var(--brand); 
 }
 .card img {
   width: 100%;
-  height: 350px;
-  object-fit: cover;
+  height: 220px; /* 🔹 define altura fixa */
+  object-fit: cover; /* 🔹 preenche sem distorcer, corta se precisar */
   border-radius: 10px;
-  margin-bottom: 10px;
+  display: block;
+  margin: 0 auto;
 }
 .card p { font-weight: 700; }
 
