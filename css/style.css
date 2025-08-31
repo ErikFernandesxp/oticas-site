@@ -164,7 +164,7 @@ footer a { color: var(--brand); font-weight: 700; }
 .copy { text-align: center; margin-top: 8px; color: #6b7280; }
 html.dark .copy { color: #9aa5b1; }
 
-/* ===== Responsivo ===== */
+/* ===== Responsividade ===== */
 @media (max-width: 980px) {
   .grid { grid-template-columns: repeat(2,1fr); }
   footer .grid-footer { grid-template-columns: 1fr; }
@@ -173,7 +173,6 @@ html.dark .copy { color: #9aa5b1; }
 @media (max-width: 760px) {
   .grid { grid-template-columns: 1fr; }
   .card img { height: 200px; }
-
   .hero { padding: 40px 14px 20px; }
 
   /* Menu Mobile */
@@ -208,19 +207,13 @@ html.dark .copy { color: #9aa5b1; }
   }
   .menu-toggle { display: block; }
 }
+
 @media (max-width: 760px) {
-  .grid { 
-    grid-template-columns: 1fr; 
-  }
-  .card img { 
-    height: 200px; 
-  }
+  .grid { grid-template-columns: 1fr; }
+  .card img { height: 200px; }
+  .hero { padding: 40px 14px 20px; }
 
-  .hero { 
-    padding: 40px 14px 20px; 
-  }
-
-  /* Menu mobile corrigido */
+  /* Menu mobile */
   .site-nav {
     display: none;
     flex-direction: column;
@@ -228,72 +221,56 @@ html.dark .copy { color: #9aa5b1; }
     background: var(--header);
     padding: 16px;
     position: absolute;
-    top: 100%;      /* logo abaixo do header */
-    left: 0;        /* começa na borda esquerda */
-    width: 100%;    /* ocupa toda largura */
+    top: 100%;
+    left: 0;
+    width: 100%;
     border-radius: 0 0 12px 12px;
     box-shadow: var(--shadow);
   }
-  .site-nav.open { 
-    display: flex; 
-  }
-
-  .menu-toggle { 
-    display: block; 
-  }
+  .site-nav.open { display: flex; }
+  .menu-toggle { display: block; }
 }
 
-.social-section {
-  text-align: center;
-  margin: 40px 0;
-}
-
-.social-section .logo {
-  max-width: 200px;
-  height: auto;
-  margin-bottom: 15px;
-}
-
-.instagram-btn {
-  display: inline-block;
-  background: #E1306C; /* cor oficial do insta */
-  color: white;
-  font-size: 24px;
-  padding: 12px 18px;
-  border-radius: 50%;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.instagram-btn:hover {
-  background: #C13584;
-}
-
+/* ===== Redes Sociais (Instagram + WhatsApp) ===== */
 .social-section {
   display: flex;
   justify-content: center;
-  gap: 15px; /* espaço entre os botões */
+  gap: 15px;
   margin: 20px 0;
 }
 
 .social-section a {
-  width: 50px;       /* largura fixa */
-  height: 50px;      /* mesma altura → círculo */
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;   /* tamanho do ícone */
+  font-size: 24px;
   color: #fff;
-  background: #111;  /* cor padrão */
-  border-radius: 50%; /* faz virar círculo */
+  background: #111;
+  border-radius: 50%;
   transition: 0.3s;
   text-decoration: none;
 }
 
-.instagram-btn:hover {
-  background: #E4405F; /* cor oficial Instagram */
-}
+/* Cores específicas */
+.instagram-btn { background: #E1306C; }
+.instagram-btn:hover { background: #C13584; }
 
-.whatsapp-btn:hover {
-  background: #25D366; /* cor oficial WhatsApp */
+.whatsapp-btn { background: #25D366; }
+.whatsapp-btn:hover { background: #1ebe57; }
+
+/* ===== Ajuste Social Buttons no Mobile ===== */
+@media (max-width: 760px) {
+  .social-section {
+    justify-content: center;
+    gap: 12px;
+    margin: 30px auto;
+  }
+
+  .social-section a {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
 }
