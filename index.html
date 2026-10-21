@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Óticas Alto Estilo | Óculos de grau e de sol em Salvador - BA</title>
+<meta name="description" content="Ótica em Salvador - BA: óculos de grau, óculos de sol, clipons e acessórios. Veja a coleção e peça seu orçamento pelo WhatsApp.">
+<meta name="theme-color" content="#f6f3ee">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Óticas Alto Estilo">
+<meta property="og:title" content="Óticas Alto Estilo | Óculos de grau e de sol em Salvador - BA">
+<meta property="og:description" content="Ótica em Salvador - BA: óculos de grau, óculos de sol, clipons e acessórios. Veja a coleção e peça seu orçamento pelo WhatsApp.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Óticas Alto Estilo | Óculos de grau e de sol em Salvador - BA">
+<meta name="twitter:description" content="Ótica em Salvador - BA: óculos de grau, óculos de sol, clipons e acessórios. Veja a coleção e peça seu orçamento pelo WhatsApp.">
+<link rel="icon" type="image/png" href="img/Logo/favicon.png">
+<link rel="apple-touch-icon" href="img/Logo/apple-touch-icon.png">
+<link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
+<script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css">
+<script defer src="js/config.js"></script>
+<script defer src="js/supabase.js"></script>
+<script defer src="js/catalogo.js"></script>
+<script defer src="js/carrinho.js"></script>
+<script defer src="js/main.js"></script>
+</head>
+<body data-page="inicio">
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+<header class="header" id="header">
+  <div class="container header__in">
+    <a class="brand" href="index.html" aria-label="Óticas Alto Estilo — início">
+      <img class="brand__logo" src="img/Logo/logo.webp" alt="" width="48" height="48" data-logo>
+      <span class="brand__name">Óticas Alto Estilo</span>
+    </a>
+    <nav class="nav" id="siteNav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="index.html" aria-current="page">Início</a></li>
+        <li><a href="colecao.html">Coleção</a></li>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#loja">A loja</a></li>
+        <li><a href="contato.html">Contato</a></li>
+        <li class="nav__extra"><a class="btn btn--primary" href="contato.html">Pedir orçamento</a></li>
+        <li class="nav__extra"><button class="theme-toggle theme-toggle--menu" type="button" aria-pressed="false">Usar modo escuro</button></li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <button class="icon-btn theme-toggle" type="button" aria-pressed="false" aria-label="Ativar modo escuro"><svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="ico ico-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <button type="button" class="icon-btn cart-btn" data-carrinho-abrir aria-label="Abrir carrinho"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-btn__n" data-carrinho-n hidden>0</span></button>
+      <a class="btn btn--primary btn--sm header__cta" href="contato.html">Pedir orçamento</a>
+      <button id="menuToggle" class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Abrir menu"><span class="burger"></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo">
+<section class="hero">
+  <div class="container hero__grid">
+    <div>
+      <span class="eyebrow rise">Ótica em Salvador - BA</span>
+      <h1 class="rise">Visão clara,<br>estilo único.</h1>
+      <p class="hero__lead rise rise--2">Descubra nossa linha de óculos de grau, de sol e clipons. Monte seu pedido e finalize pelo WhatsApp.</p>
+      <div class="hero__cta rise rise--2">
+        <a class="btn btn--primary" href="colecao.html">Ver coleção <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--ghost" href="https://wa.me/" data-wa data-wa-msg="Olá! Vim pelo site da Óticas Alto Estilo e gostaria de atendimento." target="_blank" rel="noopener"><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Falar no WhatsApp</a>
+      </div>
+      <ul class="hero__facts rise rise--2">
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>Atendimento pelo WhatsApp</li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="15" r="3.6"/><circle cx="18" cy="15" r="3.6"/><path d="M9.6 15h4.8M2.4 15 4.5 7H7M21.6 15 19.5 7H17"/></svg>Grau, sol e clipons</li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Acessórios</li>
+      </ul>
+    </div>
+    <div class="hero__visual rise rise--2">
+      <div class="hero__main"><img src="img/loja/atendimento-2.webp" alt="Mulher usando óculos de sol de armação grande" width="733" height="1100" fetchpriority="high"></div>
+      <div class="hero__card"><img src="img/catalogo/001-2.webp" alt="Solares ovais em tons de marrom e preto" width="720" height="960" fetchpriority="high"></div>
+      <div class="hero__badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="15" r="3.6"/><circle cx="18" cy="15" r="3.6"/><path d="M9.6 15h4.8M2.4 15 4.5 7H7M21.6 15 19.5 7H17"/></svg><span>Grau, sol e<br>clipons</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" hidden>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Coleções</span>
+      <h2>Encontre o seu estilo</h2>
+      <p>Escolha uma categoria e veja os modelos disponíveis.</p>
+    </div>
+    <div class="cat-grid" data-render="categorias"></div>
+  </div>
+</section>
+
+<section class="section section--tight" hidden>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Marcas</span>
+      <h2>Navegue por marca</h2>
+    </div>
+    <div class="chips" data-render="marcas"></div>
+  </div>
+</section>
+
+<section class="section section--card" id="destaques" hidden>
+  <div class="container">
+    <div class="section-head section-head--row">
+      <div>
+        <span class="eyebrow">Destaques</span>
+        <h2>Modelos em destaque</h2>
+      </div>
+      <a class="link-arrow" href="colecao.html">Ver coleção completa <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid-products" data-render="destaques"></div>
+  </div>
+</section>
+
+<section class="section" id="servicos">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Serviços</span>
+      <h2>Cuidado completo com a sua visão</h2>
+    </div>
+    <div class="services">
+      <div class="service"><div class="service__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Exames de visão</h3><p>Parceria com especialistas para avaliação completa.</p></div>
+      <div class="service"><div class="service__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="15" r="3.6"/><circle cx="18" cy="15" r="3.6"/><path d="M9.6 15h4.8M2.4 15 4.5 7H7M21.6 15 19.5 7H17"/></svg></div><h3>Óculos sob medida</h3><p>Ajustes e montagem de lentes com precisão.</p></div>
+      <div class="service"><div class="service__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div><h3>Proteção UV</h3><p>Óculos solares com proteção total.</p></div>
+      <div class="service"><div class="service__ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg></div><h3>Manutenção</h3><p>Ajustes e reparos de armações.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--card">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Peça os seus óculos em 3 passos</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Escolha o modelo</h3><p>Navegue pela coleção e veja os modelos que mais combinam com você.</p></div>
+      <div class="step"><h3>Fale com a gente</h3><p>Toque em “Tenho interesse” para enviar o modelo escolhido pelo WhatsApp.</p></div>
+      <div class="step"><h3>Receba o orçamento</h3><p>Retornamos com a melhor proposta e os próximos passos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="loja">
+  <div class="container about">
+    <div class="about__media">
+      <img class="about__big" src="img/loja/atendimento-1.webp" alt="Atendente ajustando óculos em um cliente na ótica" width="1100" height="733" loading="lazy">
+      <img class="about__small" src="img/loja/atendimento-2.webp" alt="Mulher usando óculos de sol de armação grande" width="733" height="1100" loading="lazy">
+    </div>
+    <div>
+      <span class="eyebrow">A loja</span>
+      <h2>Tecnologia, conforto e estilo para cuidar da sua visão</h2>
+      <p>Na Óticas Alto Estilo, unimos tecnologia, conforto e estilo para cuidar da sua visão.</p>
+      <ul class="about__list">
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span><strong>Atendimento humanizado</strong><br>Atenção de verdade, do primeiro contato à escolha final.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span><strong>Seleção premium</strong><br>Modelos escolhidos com cuidado para o seu estilo.</span></li>
+      </ul>
+      <div class="hero__cta">
+        <a class="btn btn--wa" href="https://wa.me/" data-wa data-wa-msg="Olá! Vim pelo site da Óticas Alto Estilo e gostaria de atendimento." target="_blank" rel="noopener"><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Falar com a equipe</a>
+        <a class="btn btn--ghost" href="colecao.html">Ver coleção</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--card" hidden>
+  <div class="container">
+    <div class="section-head section-head--row">
+      <div>
+        <span class="eyebrow">Instagram</span>
+        <h2>Acompanhe as novidades</h2>
+        <p>Lançamentos e modelos novos em <strong data-insta-handle>@instagram</strong>.</p>
+      </div>
+      <a class="btn btn--ghost" href="#" data-href="redesSociais.instagram" target="_blank" rel="noopener" hidden><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>Seguir no Instagram</a>
+    </div>
+    <div class="insta" data-render="instagram"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta">
+      <div>
+        <h2>Vamos encontrar os óculos ideais para você?</h2>
+        <p>Chame no WhatsApp ou peça seu orçamento pelo site.</p>
+        <ul class="cta__info">
+          <li data-if="contato.cidade" hidden><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-text="contato.cidade"></span></li>
+          <li data-if="contato.endereco" hidden><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span><span data-text="contato.endereco"></span> · <a href="#" data-map target="_blank" rel="noopener" hidden>Ver no mapa</a></span></li>
+          <li data-if="contato.horario" hidden><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span data-text="contato.horario"></span></li>
+        </ul>
+      </div>
+      <div class="cta__actions">
+        <a class="btn btn--wa" href="https://wa.me/" data-wa data-wa-msg="Olá! Vim pelo site da Óticas Alto Estilo e gostaria de atendimento." target="_blank" rel="noopener"><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Falar no WhatsApp</a>
+        <a class="btn btn--outline-light" href="contato.html">Pedir orçamento</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="index.html" aria-label="Óticas Alto Estilo — início">
+          <img class="brand__logo" src="img/Logo/logo.webp" alt="" width="48" height="48" data-logo loading="lazy">
+          <span class="brand__name">Óticas Alto Estilo</span>
+        </a>
+        <p data-slogan>Seu estilo com mais visão e qualidade.</p>
+        <div class="footer__social">
+          <a href="#" data-href="redesSociais.instagram" target="_blank" rel="noopener" aria-label="Instagram" hidden><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
+          <a href="#" data-href="redesSociais.facebook" target="_blank" rel="noopener" aria-label="Facebook" hidden><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a>
+          <a href="https://wa.me/" data-wa data-wa-msg="Olá! Vim pelo site da Óticas Alto Estilo e gostaria de atendimento." target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="colecao.html">Coleção</a></li>
+          <li><a href="index.html#servicos">Serviços</a></li>
+          <li><a href="index.html#loja">A loja</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Atendimento</h4>
+        <ul>
+          <li><a href="https://wa.me/" data-wa data-wa-msg="Olá! Vim pelo site da Óticas Alto Estilo e gostaria de atendimento." target="_blank" rel="noopener" data-text="contato.whatsappExibicao">Chamar no WhatsApp</a></li>
+          <li data-if="contato.cidade" hidden><span data-text="contato.cidade"></span></li>
+          <li data-if="contato.endereco" hidden><span data-text="contato.endereco"></span> <a href="#" data-map target="_blank" rel="noopener" hidden>Ver no mapa</a></li>
+          <li data-if="contato.horario" hidden><span data-text="contato.horario"></span></li>
+          <li data-if="contato.email" hidden><span data-text="contato.email"></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; <span data-year>2026</span> Óticas Alto Estilo. Todos os direitos reservados.</span>
+      <a href="privacidade.html">Política de privacidade</a>
+    </div>
+  </div>
+</footer>
+
+<a class="whats-float" href="https://wa.me/" data-wa data-wa-msg="Olá! Vim pelo site da Óticas Alto Estilo e gostaria de atendimento." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg class="ico ico--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+
+</body>
+</html>

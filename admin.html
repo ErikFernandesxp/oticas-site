@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Painel | Óticas Alto Estilo</title>
+<meta name="description" content="Painel de administração.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f6f3ee">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Óticas Alto Estilo">
+<meta property="og:title" content="Painel | Óticas Alto Estilo">
+<meta property="og:description" content="Painel de administração.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Painel | Óticas Alto Estilo">
+<meta name="twitter:description" content="Painel de administração.">
+<link rel="icon" type="image/png" href="img/Logo/favicon.png">
+<link rel="apple-touch-icon" href="img/Logo/apple-touch-icon.png">
+<link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
+<script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css">
+<script defer src="js/config.js"></script>
+<script defer src="js/supabase.js"></script>
+<script defer src="js/catalogo.js"></script>
+<script defer src="js/admin.js"></script>
+</head>
+<body class="admin">
+<header class="header">
+  <div class="container header__in">
+    <a class="brand" href="index.html" aria-label="Ir para o site">
+      <img class="brand__logo" src="img/Logo/logo.webp" alt="" width="48" height="48">
+      <span class="brand__name">Painel</span>
+    </a>
+    <div class="header__actions" style="margin-left:auto">
+      <a class="btn btn--ghost btn--sm" href="colecao.html">Ver o site</a>
+      <button type="button" class="btn btn--ghost btn--sm" id="admSair" hidden>Sair</button>
+    </div>
+  </div>
+</header>
+<main id="conteudo" class="container admin__main"><div id="admRoot"><p class="count">Carregando…</p></div></main>
+</body>
+</html>
