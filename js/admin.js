@@ -1,8 +1,10 @@
 /* ==========================================================================
    admin.js — painel do administrador (admin.html).
-   Login pelo Supabase Auth; produtos e fotos no Supabase (veja o README).
-   A segurança está no servidor (regras RLS do supabase/schema.sql): mesmo
-   que alguém abra esta página, só o e-mail da tabela "admins" consegue gravar.
+   Login pelo Supabase Auth; produtos, fotos e pedidos no Supabase.
+   A segurança está no servidor (regras RLS): mesmo que alguém abra esta
+   página, só o e-mail da tabela "admins" (função eh_admin()) consegue gravar.
+   O painel também confere o acesso ao abrir e trata dados de clientes
+   (nome, telefone, itens do pedido) como não confiáveis: tudo é escapado.
    ========================================================================== */
 (function () {
   "use strict";
@@ -15,7 +17,10 @@
 
   var root = document.getElementById("admRoot");
   var btnSair = document.getElementById("admSair");
-  var estado = { produtos: [], aba: "lista", editando: null, fotos: [], apagar: [], busca: "", ocupado: false };
+  var estado = { produtos: [], aba: "lista", editando: null, fotos: [], apagar: [], busca: "", ocupado: false,
+    pedidos: [], perfis: {}, filtroPed: "", buscaPed: "" };
+  var STATUS_PED = { novo: "Novo", confirmado: "Confirmado", pronto: "Pronto para retirada", entregue: "Entregue", cancelado: "Cancelado" };
+  var LENTES_PED = { sem: "Só a armação", com: "Com lentes (receita enviada no WhatsApp)", foto: "Com lentes (receita por foto)" };
 
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
@@ -178,8 +183,26 @@
       var em = $("#lgEmail").value.trim(), sn = $("#lgSenha").value;
       if (!em || !sn) { aviso("Informe e-mail e senha.", false); return; }
       aviso("Entrando…", true);
-      SB.entrar(em, sn).then(function () { mostrarPainel(); }, function (err) { aviso(err.message, false); });
+      SB.entrar(em, sn).then(function () { entrarNoPainel(); }, function (err) { aviso(err.message, false); });
     });
+  }
+  /* o banco decide quem é admin; clientes comuns logados não entram no painel */
+  function entrarNoPainel() {
+    btnSair.hidden = true;
+    root.innerHTML = '<p class="count" style="text-align:center;margin:40px 0">Verificando acesso…</p>';
+    SB.ehAdmin().then(function (ok) { if (ok) mostrarPainel(); else semAcesso(); });
+  }
+  function semAcesso() {
+    var s = SB.sessao();
+    btnSair.hidden = false;
+    root.innerHTML = '<div class="adm-card" style="max-width:480px;margin:30px auto"><h1>Sem acesso ao painel</h1>' +
+      "<p>A conta <strong>" + esc(s ? s.email : "") + "</strong> não é de administrador (ou o servidor não respondeu). " +
+      "Para gerenciar produtos e pedidos, entre com a conta da loja.</p>" +
+      '<div class="crop__acoes"><a class="btn btn--primary" href="index.html">Voltar ao site</a>' +
+      '<button type="button" class="btn btn--ghost" id="admTentar">Tentar de novo</button>' +
+      '<button type="button" class="btn btn--ghost" id="admOutra">Entrar com outra conta</button></div></div>';
+    $("#admTentar").addEventListener("click", entrarNoPainel);
+    $("#admOutra").addEventListener("click", function () { SB.sair(); mostrarLogin(); });
   }
   function semConfig() {
     btnSair.hidden = true;
@@ -191,12 +214,16 @@
     var s = SB.sessao();
     btnSair.hidden = false;
     root.innerHTML = '<div class="adm-top"><button type="button" class="chip" data-aba="lista" aria-pressed="true">Produtos</button>' +
+      '<button type="button" class="chip" data-aba="pedidos" aria-pressed="false">Pedidos</button>' +
       '<button type="button" class="chip" data-aba="form" aria-pressed="false">Novo óculos</button>' +
       '<span class="adm-email">' + esc(s ? s.email : "") + "</span></div>" +
       '<p class="form-status" id="admMsg" role="status" aria-live="polite"></p><div id="admView"></div>';
     $$("[data-aba]").forEach(function (b) {
       b.addEventListener("click", function () {
-        if (b.getAttribute("data-aba") === "form") novoForm(); else { estado.aba = "lista"; carregarLista(); }
+        var a = b.getAttribute("data-aba");
+        if (a === "form") novoForm();
+        else if (a === "pedidos") carregarPedidos();
+        else { estado.aba = "lista"; carregarLista(); }
       });
     });
     carregarLista();
@@ -227,6 +254,12 @@
     v.innerHTML = '<div class="adm-barra"><div class="search"><label class="sr-only" for="admBusca">Buscar</label>' +
       '<input type="search" id="admBusca" placeholder="Buscar nome, marca, modelo ou código" value="' + esc(estado.busca) + '"></div>' +
       '<button type="button" class="btn btn--primary" id="admNovo">+ Novo óculos</button></div>' +
+      '<details class="adm-card" id="admMassa" style="margin:0 0 14px"><summary><strong>Ajustar preços em massa</strong></summary>' +
+      '<p class="count">Define o mesmo preço para todos os produtos da categoria escolhida, inclusive os que você cadastrou à mão. Depois dá para editar cada óculos.</p>' +
+      '<div class="adm-grid"><div class="field"><label for="admMCat">Categoria</label><select id="admMCat"><option value="">Todas as categorias</option>' +
+        CATS.map(function (c) { return '<option value="' + esc(c.id) + '">' + esc(c.nome) + "</option>"; }).join("") + "</select></div>" +
+      '<div class="field"><label for="admMPreco">Novo preço</label><input id="admMPreco" inputmode="decimal" placeholder="Ex.: 129,90"></div></div>' +
+      '<button type="button" class="btn btn--ghost btn--sm" id="admMAplicar">Aplicar</button></details>' +
       '<p class="count">' + estado.produtos.length + (estado.produtos.length === 1 ? " produto cadastrado" : " produtos cadastrados") + "</p>" +
       (lista.length ? '<div class="adm-lista">' + lista.map(function (p) {
         var f = (p.fotos && p.fotos[0]) || {};
@@ -240,6 +273,7 @@
       }).join("") + "</div>" : '<div class="empty"><h3>Nenhum produto ainda</h3><p>Cadastre o primeiro óculos.</p></div>');
     $("#admBusca").addEventListener("input", function (e) { estado.busca = e.target.value; var pos = e.target.selectionStart; desenharLista(); var b = $("#admBusca"); b.focus(); try { b.setSelectionRange(pos, pos); } catch (x) {} });
     $("#admNovo").addEventListener("click", novoForm);
+    $("#admMAplicar").addEventListener("click", aplicarPrecoEmMassa);
     $$(".adm-item [data-ac]").forEach(function (b) {
       b.addEventListener("click", function () {
         var id = b.closest(".adm-item").getAttribute("data-id");
@@ -249,6 +283,28 @@
         if (ac === "ativo") alternar(p);
         if (ac === "excluir") excluir(p);
       });
+    });
+  }
+  function aplicarPrecoEmMassa() {
+    var cat = $("#admMCat").value, preco = parsePreco($("#admMPreco").value);
+    if (preco === null || isNaN(preco)) { aviso("Informe um preço válido, como 129,90.", false); return; }
+    var alvo = estado.produtos.filter(function (p) { return !cat || p.categoria === cat; });
+    if (!alvo.length) { aviso("Não há produtos nessa categoria.", false); return; }
+    if (!window.confirm("Definir " + moeda(preco) + " em " + alvo.length + " produto(s) " + (cat ? "da categoria “" + catNome(cat) + "”" : "de todas as categorias") + "?")) return;
+    var feitos = 0;
+    alvo.reduce(function (cadeia, p) {
+      return cadeia.then(function () {
+        return SB.atualizarProduto(p.id, { preco: preco }).then(function () {
+          feitos++;
+          if (feitos % 10 === 0) aviso("Atualizando… " + feitos + " de " + alvo.length, true);
+        });
+      });
+    }, Promise.resolve()).then(function () {
+      carregarLista();
+      setTimeout(function () { aviso(feitos + " produto(s) agora custam " + moeda(preco) + ".", true); }, 400);
+    }, function (err) {
+      carregarLista();
+      setTimeout(function () { tratarErro(err); aviso(feitos + " atualizado(s) antes do erro: " + err.message, false); }, 400);
     });
   }
   function alternar(p) {
@@ -262,6 +318,78 @@
     SB.apagarProduto(p.id).then(function () {
       return Promise.all((p.fotos || []).map(function (f) { return f.path ? SB.apagarFoto(f.path) : null; }));
     }).then(function () { aviso("“" + p.nome + "” foi excluído.", true); carregarLista(); }, tratarErro);
+  }
+
+  /* ---------- pedidos dos clientes ---------- */
+  function soDigitos(t) { return String(t == null ? "" : t).replace(/\D/g, ""); }
+  function urlSegura(u) { return /^https?:\/\//i.test(String(u || "")) ? String(u) : ""; }
+  function fmtData(iso) {
+    try { return new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; }
+  }
+  function carregarPedidos() {
+    estado.aba = "pedidos"; marcarAba("pedidos");
+    $("#admView").innerHTML = '<p class="count">Carregando pedidos…</p>';
+    Promise.all([SB.listarPedidos(), SB.listarPerfis().catch(function () { return []; })]).then(function (r) {
+      estado.pedidos = r[0] || [];
+      estado.perfis = {};
+      (r[1] || []).forEach(function (p) { estado.perfis[p.id] = p; });
+      desenharPedidos();
+    }, tratarErro);
+  }
+  function cartaoPedido(p) {
+    var perfil = estado.perfis[p.user_id] || {}, tel = soDigitos(perfil.telefone);
+    if (tel && tel.length <= 11) tel = "55" + tel;
+    var itens = Array.isArray(p.itens) ? p.itens : [];
+    var soma = 0, todos = itens.length > 0;
+    itens.forEach(function (i) { var n = Number(i && i.preco); if (i && i.preco != null && isFinite(n)) soma += n; else todos = false; });
+    return '<div class="adm-card" data-pid="' + esc(p.id) + '" style="margin-bottom:12px">' +
+      '<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><strong>Pedido #' + esc(p.numero) + "</strong>" +
+      '<span class="count">' + esc(fmtData(p.criado_em)) + "</span></div>" +
+      '<p style="margin:6px 0"><strong>' + esc(p.cliente_nome) + "</strong>" +
+      (tel ? ' · <a href="https://wa.me/' + esc(tel) + '" target="_blank" rel="noopener">Chamar no WhatsApp</a>' : "") + "</p>" +
+      '<ul style="margin:8px 0;padding-left:18px">' + itens.map(function (i) {
+        i = i || {};
+        var img = urlSegura(i.imagem);
+        var ficha = ["Cód. " + (i.codigo || ""), LENTES_PED[i.lentes] || "", i.preco != null && isFinite(Number(i.preco)) ? moeda(i.preco) : ""].filter(Boolean).join(" · ");
+        return '<li style="list-style:none;margin-left:-18px;display:flex;gap:8px;align-items:center">' +
+          (img ? '<img src="' + esc(img) + '" alt="" width="40" height="50" loading="lazy" style="object-fit:cover;border-radius:6px">' : "") +
+          "<span>" + esc(i.nome) + ' <span class="count">' + esc(ficha) + "</span></span></li>";
+      }).join("") + "</ul>" +
+      (todos ? '<p class="count">Total dos itens: <strong>' + esc(moeda(soma)) + "</strong> (lentes não incluídas)</p>" : "") +
+      '<div class="adm-grid"><div class="field"><label>Status</label><select data-ped="status">' +
+        Object.keys(STATUS_PED).map(function (k) { return '<option value="' + k + '"' + (p.status === k ? " selected" : "") + ">" + STATUS_PED[k] + "</option>"; }).join("") + "</select></div>" +
+      '<div class="field field--full"><label>Anotação interna (só você vê)</label><input data-ped="obs" maxlength="300" value="' + esc(p.observacao) + '"></div></div>' +
+      '<button type="button" class="btn btn--ghost btn--sm" data-ped="salvar">Salvar</button></div>';
+  }
+  function desenharPedidos() {
+    var v = $("#admView"), q = estado.buscaPed.toLowerCase(), f = estado.filtroPed;
+    var contagem = {};
+    estado.pedidos.forEach(function (p) { contagem[p.status] = (contagem[p.status] || 0) + 1; });
+    var lista = estado.pedidos.filter(function (p) {
+      if (f && p.status !== f) return false;
+      var perfil = estado.perfis[p.user_id] || {};
+      return !q || [p.numero, p.cliente_nome, perfil.nome, perfil.telefone].join(" ").toLowerCase().indexOf(q) !== -1;
+    });
+    v.innerHTML = '<div class="adm-barra"><div class="search"><label class="sr-only" for="admBuscaPed">Buscar</label>' +
+      '<input type="search" id="admBuscaPed" placeholder="Buscar número, nome ou telefone" value="' + esc(estado.buscaPed) + '"></div></div>' +
+      '<div class="adm-top" role="group" aria-label="Filtrar por status"><button type="button" class="chip" data-filtro="" aria-pressed="' + (f === "") + '">Todos (' + estado.pedidos.length + ")</button>" +
+      Object.keys(STATUS_PED).map(function (k) { return '<button type="button" class="chip" data-filtro="' + k + '" aria-pressed="' + (f === k) + '">' + STATUS_PED[k] + " (" + (contagem[k] || 0) + ")</button>"; }).join("") + "</div>" +
+      '<p class="count">' + lista.length + (lista.length === 1 ? " pedido" : " pedidos") + "</p>" +
+      (lista.length ? lista.map(cartaoPedido).join("") : '<div class="empty"><h3>Nenhum pedido</h3><p>Os pedidos de clientes que finalizam logados aparecem aqui.</p></div>');
+    $("#admBuscaPed").addEventListener("input", function (e) { estado.buscaPed = e.target.value; var pos = e.target.selectionStart; desenharPedidos(); var b = $("#admBuscaPed"); b.focus(); try { b.setSelectionRange(pos, pos); } catch (x) {} });
+    $$("[data-filtro]").forEach(function (b) { b.addEventListener("click", function () { estado.filtroPed = b.getAttribute("data-filtro"); desenharPedidos(); }); });
+    $$("[data-ped=salvar]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var card = b.closest("[data-pid]"), id = card.getAttribute("data-pid");
+        var dados = { status: $("[data-ped=status]", card).value, observacao: $("[data-ped=obs]", card).value.trim() || null, atualizado_em: new Date().toISOString() };
+        b.disabled = true;
+        SB.atualizarPedido(id, dados).then(function (salvo) {
+          estado.pedidos.forEach(function (p) { if (p.id === id) { p.status = dados.status; p.observacao = dados.observacao; } });
+          aviso("Pedido atualizado.", true);
+          desenharPedidos();
+        }, function (err) { b.disabled = false; tratarErro(err); });
+      });
+    });
   }
 
   /* ---------- formulário ---------- */
@@ -401,6 +529,6 @@
   /* ---------- início ---------- */
   btnSair.addEventListener("click", function () { SB.sair(); mostrarLogin(); });
   if (!SB || !SB.configurado) semConfig();
-  else if (SB.sessao()) mostrarPainel();
+  else if (SB.sessao()) entrarNoPainel();
   else mostrarLogin();
 })();

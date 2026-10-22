@@ -2,13 +2,15 @@
    carrinho.js — carrinho de óculos com receita por item.
    O pedido NÃO é pago no site: ao finalizar, abre o WhatsApp com tudo
    organizado (nome do modelo, ID, marca, modelo e receita de cada óculos).
+   Se o cliente estiver logado, o pedido também é salvo no histórico dele
+   (sem os valores da receita, que são dado de saúde) — veja registrarPedido.
    ========================================================================== */
 (function () {
   "use strict";
 
   var CHAVE = "otica_carrinho_v1", NOME_CHAVE = "otica_cliente_nome", MAX = 10;
   var itens = ler();
-  var dlg = null, toastEl = null, toastT = null;
+  var dlg = null, toastEl = null, toastT = null, ultimoPedido = { sig: "", t: 0 };
 
   function O() { return window.Otica || {}; }
   function esc(s) { return (O().esc || function (x) { return String(x); })(s); }
@@ -40,7 +42,7 @@
   function adicionar(p) {
     if (contem(p.codigo)) { toast("Este modelo já está no carrinho.", "Ver carrinho"); return "duplicado"; }
     if (itens.length >= MAX) { toast("O carrinho aceita até " + MAX + " óculos. Para mais, fale com a equipe."); return "limite"; }
-    itens.push({ lid: novoId(), codigo: p.codigo, nome: p.nome, marca: p.marca || "", modelo: p.modelo || "", imagem: p.imagem || "", receita: receitaVazia() });
+    itens.push({ lid: novoId(), codigo: p.codigo, nome: p.nome, marca: p.marca || "", modelo: p.modelo || "", imagem: p.imagem || "", preco: p.preco == null ? null : p.preco, receita: receitaVazia() });
     gravar();
     toast("“" + p.nome + "” foi para o carrinho.", "Ver carrinho");
     return "ok";
@@ -180,6 +182,7 @@
         '<input id="cart-nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?"></div>' +
         '<div class="field"><label for="cart-obs">Observações do pedido</label>' +
         '<textarea id="cart-obs" rows="2" placeholder="Ex.: retirar na loja, prazo, dúvidas…"></textarea></div>' +
+        '<p class="form-hint" id="cart-conta" hidden>Quer guardar este pedido no seu histórico? <button type="button" class="conta-link" data-conta-abrir>Entrar ou criar conta</button></p>' +
         '<p class="form-status" id="cart-status" role="status" aria-live="polite"></p>' +
         '<button type="button" class="btn btn--wa cart__enviar" id="cart-enviar">' + (O().icoWa || "") + "Finalizar pelo WhatsApp</button>" +
         '<button type="button" class="cart__limpar" id="cart-limpar">Limpar carrinho</button>' +
@@ -224,6 +227,31 @@
     $("#cart-limpar", dlg).addEventListener("click", function () {
       if (itens.length && !window.confirm("Remover todos os óculos do carrinho?")) return;
       itens = []; gravar(); lista(); status("");
+    });
+  }
+  /* mostra o convite para entrar (só se a loja usa Supabase) e preenche o nome da conta */
+  function atualizarConta() {
+    if (!dlg) return;
+    var SB = window.SB, logado = !!(SB && SB.configurado && SB.sessao()), dica = $("#cart-conta", dlg);
+    if (dica) dica.hidden = !(SB && SB.configurado) || logado;
+    var campoNome = $("#cart-nome", dlg), s = logado ? SB.sessao() : null;
+    if (campoNome && s && s.nome && !campoNome.value.trim()) campoNome.value = s.nome;
+  }
+  /* guarda o pedido no histórico da conta; o WhatsApp já foi aberto antes e nunca depende disto */
+  function registrarPedido(nome, validados) {
+    var SB = window.SB;
+    if (!SB || !SB.configurado || !SB.sessao()) return;
+    var sig = validados.map(function (v) { return v.item.lid + ":" + v.r.tipo; }).join("|");
+    if (sig === ultimoPedido.sig && Date.now() - ultimoPedido.t < 120000) return;
+    ultimoPedido = { sig: sig, t: Date.now() };
+    var lista = validados.map(function (v) {
+      return { codigo: v.item.codigo, nome: v.item.nome, marca: v.item.marca || "", modelo: v.item.modelo || "", preco: v.item.preco == null ? null : v.item.preco, imagem: v.item.imagem || "", lentes: v.r.tipo };
+    });
+    SB.criarPedido({ cliente_nome: nome, itens: lista }).then(function () {
+      toast("Pedido salvo em “Minha conta”.");
+    }, function () {
+      ultimoPedido = { sig: "", t: 0 };
+      toast("O pedido foi para o WhatsApp, mas não consegui salvar no seu histórico.");
     });
   }
   function status(msg, ok) {
@@ -301,11 +329,12 @@
     var msg = montarMensagem(nome, obs, validados);
     status("Abrindo o WhatsApp… se não abrir, toque em Finalizar de novo.", true);
     if (O().openWhatsApp && O().waUrl) O().openWhatsApp(O().waUrl(msg));
+    registrarPedido(nome, validados);
   }
 
   function abrir() {
     if (!dlg) montar();
-    lista(); status("");
+    lista(); status(""); atualizarConta();
     document.body.classList.add("no-scroll");
     if (typeof dlg.showModal === "function") { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute("open", "");
   }
@@ -315,7 +344,19 @@
     document.body.classList.remove("no-scroll");
   }
 
+  /* carrega a área do cliente (js/conta.js) quando a loja usa Supabase */
+  function carregarConta() {
+    var SB = window.SB;
+    if (!SB || !SB.configurado || window.OticaConta || document.querySelector('script[src*="conta.js"]')) return;
+    var s = document.createElement("script");
+    s.src = "js/conta.js";
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   function iniciar() {
+    carregarConta();
+    document.addEventListener("otica:conta", atualizarConta);
     document.addEventListener("click", function (e) {
       if (e.target.closest("[data-carrinho-abrir]")) { e.preventDefault(); abrir(); }
     });
